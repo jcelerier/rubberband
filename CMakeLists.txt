@@ -28,7 +28,7 @@ add_library(rubberband)
 target_compile_options(rubberband
   PRIVATE
     $<$<BOOL:${APPLE}>:-mmacosx-version-min=10.11>
-    $<$<AND:$<NOT:$<CXX_COMPILER_ID:MSVC>>,$<CONFIG:Release>>:-ffast-math -march=native -O3 -ftree-vectorize>
+    $<$<AND:$<NOT:$<CXX_COMPILER_ID:MSVC>>,$<CONFIG:Release>>:-ffast-math -O3 -ftree-vectorize>
 )
 
 target_compile_definitions(rubberband
