@@ -3,6 +3,10 @@ project(rubberband VERSION 2.1.1)
 
 option(RUBBERBAND_EXAMPLE "Build the Rubberband example app" OFF)
 option(RUBBERBAND_OPTIMIZED "Build Rubberband optimized for the build machine's CPU" OFF)
+option(RUBBERBAND_KISSFFT "Enable KissFFT" OFF)
+option(RUBBERBAND_FFTW "Enable FFTW (if available)" ON)
+option(RUBBERBAND_BUILTIN_FFT "Enable built-in FFT" ON)
+
 ### Dependencies ###
 
 # ARM cross-compilers do not support march=native, only mtune=native
@@ -21,8 +25,10 @@ endif()
 find_package(Threads REQUIRED)
 
 # FFTW3
-find_path(FFTW3_INCLUDEDIR fftw3.h)
-find_library(FFTW3_LIBRARY fftw3)
+if(RUBBERBAND_FFTW)
+  find_path(FFTW3_INCLUDEDIR fftw3.h)
+  find_library(FFTW3_LIBRARY fftw3)
+endif()
 
 # libsamplerate
 if(NOT TARGET samplerate)
@@ -72,7 +78,7 @@ target_link_libraries(rubberband
 )
 
 # Handle FFT library
-if(FFTW3_INCLUDEDIR AND FFTW3_LIBRARY)
+if(RUBBERBAND_FFTW AND FFTW3_INCLUDEDIR AND FFTW3_LIBRARY)
   target_include_directories(rubberband
     PRIVATE
       ${FFTW3_INCLUDEDIR}
@@ -86,15 +92,24 @@ if(FFTW3_INCLUDEDIR AND FFTW3_LIBRARY)
     PUBLIC
       ${FFTW3_LIBRARY}
   )
-else()
+endif()
+
+if(RUBBERBAND_KISSFFT)
   target_compile_definitions(rubberband
     PRIVATE
-      USE_KISSFFT
+      HAVE_KISSFFT
   )
   target_sources(rubberband
     PRIVATE
       src/kissfft/kiss_fft.c
       src/kissfft/kiss_fftr.c
+  )
+endif()
+
+if(RUBBERBAND_BUILTIN_FFT)
+  target_compile_definitions(rubberband
+    PRIVATE
+      USE_BUILTIN_FFT
   )
 endif()
 
