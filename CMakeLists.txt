@@ -159,26 +159,26 @@ endif()
 ### Source files ###
 target_sources(rubberband
   PRIVATE
+    src/faster/AudioCurveCalculator.cpp
+    src/faster/CompoundAudioCurve.cpp
+    src/faster/HighFrequencyAudioCurve.cpp
+    src/faster/SilentAudioCurve.cpp
+    src/faster/PercussiveAudioCurve.cpp
+    src/common/Log.cpp
+    src/common/Profiler.cpp
+    src/common/FFT.cpp
+    src/common/Resampler.cpp
+    src/common/BQResampler.cpp
+    src/common/Allocators.cpp
+    src/common/StretchCalculator.cpp
+    src/common/sysutils.cpp
+    src/common/Thread.cpp
+    src/faster/StretcherChannelData.cpp
+    src/faster/R2Stretcher.cpp
+    src/faster/StretcherProcess.cpp
+    src/finer/R3Stretcher.cpp
     src/RubberBandStretcher.cpp
-    src/StretchCalculator.cpp
-    src/StretcherChannelData.cpp
-    src/StretcherImpl.cpp
-    src/StretcherProcess.cpp
-    src/audiocurves/CompoundAudioCurve.cpp
-    src/audiocurves/ConstantAudioCurve.cpp
-    src/audiocurves/HighFrequencyAudioCurve.cpp
-    src/audiocurves/PercussiveAudioCurve.cpp
-    src/audiocurves/SilentAudioCurve.cpp
-    src/audiocurves/SpectralDifferenceAudioCurve.cpp
-    src/base/Profiler.cpp
-    src/dsp/AudioCurveCalculator.cpp
-    src/dsp/FFT.cpp
-    src/dsp/Resampler.cpp
     src/rubberband-c.cpp
-    src/system/Allocators.cpp
-    src/system/Thread.cpp
-    src/system/VectorOpsComplex.cpp
-    src/system/sysutils.cpp
 )
 
 ### Example ###

@@ -118,12 +118,8 @@ R3Stretcher::R3Stretcher(Parameters parameters,
     m_prevInhop = m_inhop;
     m_prevOuthop = int(round(m_inhop * getEffectiveRatio()));
 
-    if (!m_inhop.is_lock_free()) {
-        m_log.log(0, "WARNING: std::atomic<int> is not lock-free");
-    }
-    if (!m_timeRatio.is_lock_free()) {
-        m_log.log(0, "WARNING: std::atomic<double> is not lock-free");
-    }
+    static_assert(decltype(m_inhop)::is_always_lock_free);
+    static_assert(decltype(m_timeRatio)::is_always_lock_free);
 }
 
 WindowType
