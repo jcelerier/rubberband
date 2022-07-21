@@ -43,6 +43,7 @@ endif()
 
 ### Create our target ###
 add_library(rubberband)
+target_compile_features(rubberband PRIVATE cxx_std_20)
 
 ### Handle general flags, include paths, etc ###
 target_compile_options(rubberband
