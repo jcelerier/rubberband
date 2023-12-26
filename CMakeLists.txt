@@ -171,6 +171,7 @@ target_sources(rubberband
     src/common/Resampler.cpp
     src/common/BQResampler.cpp
     src/common/Allocators.cpp
+    src/common/mathmisc.cpp
     src/common/StretchCalculator.cpp
     src/common/sysutils.cpp
     src/common/Thread.cpp
