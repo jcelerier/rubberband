@@ -11,7 +11,6 @@ option(RUBBERBAND_BUILTIN_FFT "Enable built-in FFT" ON)
 
 # ARM cross-compilers do not support march=native, only mtune=native
 set(MARCH_NATIVE_FLAG)
-
 include(CheckCXXCompilerFlag)
 
 if(RUBBERBAND_OPTIMIZED)
@@ -23,6 +22,11 @@ if(RUBBERBAND_OPTIMIZED)
 endif()
 
 find_package(Threads REQUIRED)
+
+# Configuration
+set(CMAKE_C_VISIBILITY_PRESET hidden)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 # FFTW3
 if(RUBBERBAND_FFTW)
