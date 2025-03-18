@@ -30,8 +30,8 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 # FFTW3
 if(RUBBERBAND_FFTW)
-  find_path(FFTW3_INCLUDEDIR fftw3.h)
-  find_library(FFTW3_LIBRARY fftw3)
+  find_path(FFTW_INCLUDE_DIR fftw3.h)
+  find_library(FFTW_LIBRARY fftw3)
 endif()
 
 # libsamplerate
@@ -52,7 +52,7 @@ target_compile_features(rubberband PRIVATE cxx_std_20)
 ### Handle general flags, include paths, etc ###
 target_compile_options(rubberband
   PRIVATE
-    $<$<BOOL:${APPLE}>:-mmacosx-version-min=10.11>
+    $<$<BOOL:${APPLE}>:-mmacosx-version-min=12.0>
     $<$<AND:$<NOT:$<CXX_COMPILER_ID:MSVC>>,$<CONFIG:Release>>:-ffast-math ${MARCH_NATIVE_FLAG} -O3 -ftree-vectorize>
 )
 
@@ -83,10 +83,10 @@ target_link_libraries(rubberband
 )
 
 # Handle FFT library
-if(RUBBERBAND_FFTW AND FFTW3_INCLUDEDIR AND FFTW3_LIBRARY)
+if(RUBBERBAND_FFTW AND FFTW_INCLUDE_DIR AND FFTW_LIBRARY)
   target_include_directories(rubberband
     PRIVATE
-      ${FFTW3_INCLUDEDIR}
+      ${FFTW_INCLUDE_DIR}
   )
   target_compile_definitions(rubberband
     PRIVATE
@@ -95,7 +95,7 @@ if(RUBBERBAND_FFTW AND FFTW3_INCLUDEDIR AND FFTW3_LIBRARY)
   )
   target_link_libraries(rubberband
     PUBLIC
-      ${FFTW3_LIBRARY}
+      ${FFTW_LIBRARY}
   )
 endif()
 
